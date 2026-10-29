@@ -88,7 +88,7 @@ footer{margin-top:18px;color:var(--tx3);font-size:11.5px;display:flex;gap:16px;f
 .tr,.cons .tr{grid-template-columns:12px minmax(0,1fr) auto;grid-template-areas:"p t t" "p c v" "p d s";gap:4px 10px;padding:11px 12px}
 .tr>:nth-child(1){grid-area:p}.tr>:nth-child(2){grid-area:t}.tr>:nth-child(3){grid-area:c;font-size:12px}.tr>:nth-child(4){grid-area:v}.tr>:nth-child(5){display:none}.tr>:nth-child(6){grid-area:d}.tr>:nth-child(7){grid-area:s;text-align:right}
 .cons .tr>:nth-child(3){grid-area:c}.cons .tr>:nth-child(4){display:none}.cons .tr>:nth-child(5){grid-area:d}.cons .tr>:nth-child(6){display:none}.cons .tr>:nth-child(7){grid-area:s;text-align:right}
-.tr .ct{text-align:right}.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
+.tr .ct{text-align:left}.tr .ct.num{text-align:right}.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -212,14 +212,14 @@ if(state.src==='c'){
 var q=norm(state.q),L=C.filter(function(x){if(state.qv==='new'&&!x.isNew)return false;if(state.st==='open'&&x.expired)return false;if(state.st==='closed'&&!x.expired)return false;if(state.st==='soon'&&(x.expired||x.dd>7))return false;return !q||norm(x.t+' '+x.org+' '+x.code).indexOf(q)>=0;}).sort(function(a,b){return (a.expired-b.expired)||b.pubRaw.localeCompare(a.pubRaw);});
 $('#cnt').textContent=L.length+' διαβουλεύσεις';
 $('#tbl').className='cons';
-$('#tbl').innerHTML='<div class="th"><div></div><div>Διαβούλευση</div><div>Φορέας</div><div>Ανάρτηση</div><div>Λήξη</div><div class="rt">Σχόλια</div><div>Κατάσταση</div></div>'+
-(L.length?L.map(function(x){return '<a class="tr'+(x.isNew?'':' dim')+(x.expired?' cl':'')+'" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div><div class="t">'+(x.isNew?'<span class="tg new">ΝΕΑ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.code)+'</div></div><div class="c2">'+esc(x.org)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div>'+(x.expired?'<span class="cd mu">'+esc(x.exp)+'</span>':dueTxt(x))+'</div><div class="rt num">'+x.com+'</div><div>'+(x.expired?'<span class="st ex">Έληξε</span>':'<span class="st op">Ενεργή</span>')+'</div></a>';}).join(''):'<div class="empty">Κανένα αποτέλεσμα.</div>');
+$('#tbl').innerHTML='<div class="th"><div></div><div>Διαβούλευση</div><div>Φορέας</div><div class="ct">Ανάρτηση</div><div class="ct">Λήξη</div><div class="rt">Σχόλια</div><div>Κατάσταση</div></div>'+
+(L.length?L.map(function(x){return '<a class="tr'+(x.isNew?'':' dim')+(x.expired?' cl':'')+'" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div><div class="t">'+(x.isNew?'<span class="tg new">ΝΕΑ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.code)+'</div></div><div class="c2">'+esc(x.org)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct">'+(x.expired?'<span class="cd mu">'+esc(x.exp)+'</span>':dueTxt(x))+'</div><div class="rt num">'+x.com+'</div><div>'+(x.expired?'<span class="st ex">Έληξε</span>':'<span class="st op">Ενεργή</span>')+'</div></a>';}).join(''):'<div class="empty">Κανένα αποτέλεσμα.</div>');
 return;}
 var R=rows();
 $('#cnt').textContent=R.length+' διαγωνισμοί'+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
 $('#tbl').className='';
-$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','ct')+H('new','Δημοσίευση')+H('dl','Προθεσμία')+'<div>Κατάσταση</div></div>'+
-(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="ct num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
+$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','ct')+H('new','Δημοσίευση','ct')+H('dl','Προθεσμία','ct')+'<div>Κατάσταση</div></div>'+
+(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="ct num">'+eurS(x.bv)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct"><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
 (R.length>state.lim?'<button class="more" id="more">Εμφάνιση περισσότερων ('+(R.length-state.lim)+')</button>':'');
 }
 function go(k){
