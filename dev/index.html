@@ -137,7 +137,7 @@ footer{flex-direction:column;gap:6px}
 <main class="wrap" id="app"><div class="empty">Φόρτωση δεδομένων…</div></main>
 <script>
 (function(){
-'use strict';
+'use strict';var DSRC=location.hostname.slice(-10)==='.pages.dev'?'/report':'../index.html';if(DSRC==='/report')document.querySelectorAll('a[href="../"]').forEach(function(a){a.href='/report';});
 var LS={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
 var $=function(s,r){return (r||document).querySelector(s);};
 var esc=function(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
@@ -301,13 +301,13 @@ if((b=t.closest('.li[data-r]'))){state.src='w';state.qv='all';state.st='all';sta
 if((b=t.closest('.tr[data-r]'))){state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;return render();}
 });
 document.addEventListener('keydown',function(e){var b=e.target.closest&&e.target.closest('.tr[data-r]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;render();var n=$('.tr[data-r="'+b.dataset.r+'"]');if(n)n.focus();}});
-function waitUpd(){var w=0;try{w=+sessionStorage.getItem('nepps.wait')||0;}catch(e){}if(!w||Date.now()-w>12e5||waitUpd.t)return;var el=$('#rf');el.textContent='⏳ Ενημέρωση σε εξέλιξη…';waitUpd.t=setInterval(function(){if(Date.now()-w>12e5){clearInterval(waitUpd.t);el.textContent='↻ Ενημέρωση τώρα';return;}fetch('../index.html?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var m=/"run": "([^"]+)"/.exec(h);if(m&&m[1]!==M.run){try{sessionStorage.removeItem('nepps.wait');}catch(e){}location.reload();}});},30000);}
+function waitUpd(){var w=0;try{w=+sessionStorage.getItem('nepps.wait')||0;}catch(e){}if(!w||Date.now()-w>12e5||waitUpd.t)return;var el=$('#rf');el.textContent='⏳ Ενημέρωση σε εξέλιξη…';waitUpd.t=setInterval(function(){if(Date.now()-w>12e5){clearInterval(waitUpd.t);el.textContent='↻ Ενημέρωση τώρα';return;}fetch(DSRC+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var m=/"run": "([^"]+)"/.exec(h);if(m&&m[1]!==M.run){try{sessionStorage.removeItem('nepps.wait');}catch(e){}location.reload();}});},30000);}
 $('#rf').addEventListener('click',function(e){e.preventDefault();if(waitUpd.t||waitUpd.busy)return;var el=$('#rf');waitUpd.busy=1;el.textContent='⏳ Αποστολή…';fetch('/api/refresh',{method:'POST',credentials:'same-origin'}).then(function(r){return r.json().catch(function(){return {};}).then(function(j){if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));});}).then(function(){waitUpd.busy=0;try{sessionStorage.setItem('nepps.wait',String(Date.now()));}catch(x){}waitUpd();}).catch(function(err){waitUpd.busy=0;el.innerHTML='↻<span class="hm"> Ενημέρωση τώρα</span>';alert('Η ενημέρωση δεν ξεκίνησε ('+err.message+'). Δοκιμάστε ξανά σε λίγο.');});});waitUpd();
 $('#q').addEventListener('input',function(e){state.auto=false;state.q=e.target.value;state.lim=40;render();});
 ['cat','st','val'].forEach(function(id){$('#'+id).addEventListener('change',function(e){if(state.auto){state.auto=false;state.q='';$('#q').value='';}state[id]=e.target.value;state.lim=40;render();});});
 render();
 }
-fetch('../index.html',{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var i=h.indexOf('const DATA = ');if(i<0)throw 0;var s=h.slice(i+13);boot(JSON.parse(s.slice(0,s.indexOf(';\n(function(){'))));})
+fetch(DSRC,{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var i=h.indexOf('const DATA = ');if(i<0)throw 0;var s=h.slice(i+13);boot(JSON.parse(s.slice(0,s.indexOf(';\n(function(){'))));})
 .catch(function(e){console.error(e);$('#app').innerHTML='<div class="empty">Δεν ήταν δυνατή η φόρτωση των δεδομένων. <a href="../">Άνοιγμα κλασικής προβολής</a></div>';});
 })();
 </script>
