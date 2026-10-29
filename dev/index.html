@@ -97,6 +97,33 @@ footer{margin-top:18px;color:var(--tx3);font-size:11.5px;display:flex;gap:16px;f
 .tr>:nth-child(1){grid-area:p}.tr>:nth-child(2){grid-area:t}.tr>:nth-child(3){grid-area:c;font-size:12px}.tr>:nth-child(4){grid-area:v}.tr>:nth-child(5){display:none}.tr>:nth-child(6){grid-area:d}.tr>:nth-child(7){grid-area:s;text-align:right}
 .cons .tr>:nth-child(3){grid-area:c}.cons .tr>:nth-child(4){display:none}.cons .tr>:nth-child(5){grid-area:d}.cons .tr>:nth-child(6){display:none}.cons .tr>:nth-child(7){grid-area:s;text-align:right}
 .tr .ct{text-align:left}.tr .ct.num{text-align:right}.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
+.mx{display:none}
+@media(max-width:860px){.kpis{grid-template-columns:repeat(4,1fr)}.kpi:nth-child(n){border-top:0;border-right:1px solid var(--ln2)}.kpi:nth-child(4){border-right:0}.kpi:nth-child(n+5){border-top:1px solid var(--ln2)}
+.top .hm{display:none}.brand,.top .meta{white-space:nowrap}
+.g2{display:flex;flex-direction:column;gap:12px}.side{display:contents}.side>:nth-child(1){order:1}.side>:nth-child(4){order:2}#pinp{order:3}#calp{order:4}}
+@media(max-width:640px){
+body{font-size:13.5px}
+.top{position:static;height:auto;flex-wrap:wrap;gap:6px 10px;padding:8px 12px}.top .upd{order:9;flex-basis:100%;font-size:11.5px}.top a.rf{padding:5px 10px}
+.wrap{padding:10px 10px 32px}
+.kpis{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}.kpis::-webkit-scrollbar{display:none}
+.kpi{flex:0 0 40%;scroll-snap-align:start;padding:9px 12px;border-top:0;border-right:1px solid var(--ln2)}.kpi:nth-child(n){border-top:0;border-right:1px solid var(--ln2)}.kpi:nth-child(1){order:-2}.kpi:nth-child(3){order:-1}.kpi .v{font-size:18px}
+.g2{margin-top:12px}
+.ph{flex-wrap:wrap;row-gap:2px;padding:10px 12px}.ph .c{order:5;flex-basis:100%;font-size:11.5px}
+.li{padding:10px 12px;gap:8px}.li .t{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-size:13.5px;line-height:1.35}.li .r{min-width:0}
+.lst:not(.open)>.li:nth-child(n+6){display:none}.mx{display:block;width:100%;padding:11px;border:0;border-top:1px solid var(--ln2);background:var(--sf);color:var(--bl);font-weight:600;cursor:pointer}.lst.open+.mx{display:none}
+.pin{font-size:14px;padding:3px;margin:-3px 3px -3px -3px}
+.cday{height:38px;font-size:13px}
+.feed{margin-top:12px}.tb{padding:10px 12px;gap:8px}.seg{width:100%}.seg button{flex:1;padding:8px}
+.qv{flex-wrap:nowrap;overflow-x:auto;width:100%;scrollbar-width:none;margin:0 -2px}.qv::-webkit-scrollbar{display:none}.qv button{flex:0 0 auto;white-space:nowrap;padding:6px 10px;border-color:var(--ln)}
+.tb input[type=search],.tb select{font-size:16px;padding:8px 10px}.tb #cat{flex:1 1 100%}.tb #st,.tb #val{flex:1 1 40%;min-width:0}
+.tr,.cons .tr{grid-template-areas:"p t t" "p c v" "p b d";gap:5px 10px;padding:12px}.tr .t{font-size:14px}
+.tr>:nth-child(4){font-weight:600}.tr>:nth-child(5){display:block;grid-area:b;text-align:left;font-size:12px}.tr>:nth-child(5):before{content:"Δημοσίευση ";color:var(--tx3)}
+.tr>:nth-child(5).ct{text-align:left}.tr>:nth-child(6){text-align:right}.tr>:nth-child(6)>.num:before{content:"Λήξη ";color:var(--tx3);font-size:12px}.tr>:nth-child(6)>div{display:inline;margin-right:6px}.tr>:nth-child(7){display:none}
+.cons .tr{grid-template-areas:"p t t" "p c c" "p b d"}.cons .tr>:nth-child(3){grid-area:c;font-size:12px}.cons .tr>:nth-child(3):before{content:"Φορέας ";font-weight:600;color:var(--tx3);font-size:11px}
+.cons .tr>:nth-child(4){display:block;grid-area:b;text-align:left;font-weight:400;font-size:12px}.cons .tr>:nth-child(4):before{content:"Ανάρτηση ";color:var(--tx3)}.cons .tr>:nth-child(5){grid-area:d;text-align:right}.cons .tr>:nth-child(5):before{content:"Λήξη ";color:var(--tx3);font-size:12px}.cons .tr .t{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.cons .tr>:nth-child(6),.cons .tr>:nth-child(7){display:none}
+.dt{padding:4px 12px 14px}.acts .btn{flex:1 1 auto;text-align:center;padding:9px 12px}
+footer{flex-direction:column;gap:6px}
+}
 </style>
 </head>
 <body>
@@ -104,8 +131,8 @@ footer{margin-top:18px;color:var(--tx3);font-size:11.5px;display:flex;gap:16px;f
 <div class="logo">N</div><div class="brand">NEPPS Intelligence<span>Δημόσιο · ΤΠΕ</span></div>
 <div class="sp"></div>
 <div class="meta x" id="since"></div>
-<div class="meta"><span class="dot"></span>Ενημέρωση <b id="upd">—</b></div>
-<a class="meta rf" id="rf" href="https://github.com/operalockielook-netizen/nepps-monitor/actions/workflows/refresh_dashboard.yml" target="_blank" rel="noopener" title="Νέα ενημέρωση τώρα, χωρίς email (διαρκεί λίγα λεπτά)">↻ Ενημέρωση τώρα</a><a class="meta" href="../">Κλασική προβολή</a>
+<div class="meta upd"><span class="dot"></span>Ενημέρωση <b id="upd">—</b></div>
+<a class="meta rf" id="rf" href="https://github.com/operalockielook-netizen/nepps-monitor/actions/workflows/refresh_dashboard.yml" target="_blank" rel="noopener" title="Νέα ενημέρωση τώρα, χωρίς email (διαρκεί λίγα λεπτά)">↻<span class="hm"> Ενημέρωση τώρα</span></a><a class="meta" href="../">Κλασική<span class="hm"> προβολή</span></a>
 </header>
 <main class="wrap" id="app"><div class="empty">Φόρτωση δεδομένων…</div></main>
 <script>
@@ -191,7 +218,7 @@ var html='<section class="kpis">'+K.map(function(k){return '<button class="kpi '
 var RECENT=U.filter(function(x){return x.pubRaw===latest;});var todayL=(NEW.length?NEW:RECENT).slice().sort(function(a,b){return (b.bv||0)-(a.bv||0)||byPri(a,b);}).slice(0,12);
 var li=function(x,right){return '<div class="li" data-r="'+esc(x.ref)+'"><span class="pr '+(x.pri||'l')+'"></span><div style="min-width:0"><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="r">'+right(x)+'</div></div>';};
 html+='<div class="g2"><section class="pn"><div class="ph"><h2>Νέα έργα</h2><span class="c">'+NEW.length+' · '+basis+' · κατά ποσό</span><span class="sp"></span><span class="tot">Σύνολο <b class="num">'+eurS(newSum)+'</b></span></div>'+
-(NEW.length?'':'<div class="note"><b>Δεν υπάρχουν νέα έργα</b> '+basis+'. Πιο πρόσφατες δημοσιεύσεις ('+dm(latest)+'):</div>')+(todayL.length?todayL.map(function(x){return li(x,function(x){return '<b class="num">'+eurS(x.bv)+'</b>'+dueTxt(x);});}).join(''):'<div class="empty">Δεν υπάρχουν νέες δημοσιεύσεις έργων.</div>')+
+(NEW.length?'':'<div class="note"><b>Δεν υπάρχουν νέα έργα</b> '+basis+'. Πιο πρόσφατες δημοσιεύσεις ('+dm(latest)+'):</div>')+(todayL.length?'<div class="lst">'+todayL.map(function(x){return li(x,function(x){return '<b class="num">'+eurS(x.bv)+'</b>'+dueTxt(x);});}).join('')+'</div>'+(todayL.length>5?'<button class="mx" data-mx>Εμφάνιση όλων ('+todayL.length+')</button>':''):'<div class="empty">Δεν υπάρχουν νέες δημοσιεύσεις έργων.</div>')+
 (NEW.length>todayL.length?'<button class="more" data-k="new">Όλα τα νέα έργα ('+NEW.length+') →</button>':'')+'</section>';
 var nc=NEWC.slice().sort(function(a,b){return b.pubRaw.localeCompare(a.pubRaw);});
 var cli=function(x){return '<a class="li" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div style="min-width:0"><div class="t">'+pinB(x)+(x.isNew?'<span class="tg new">ΝΕΑ</span>':'')+(x.isUpd?'<span class="tg upd" title="'+esc(x.chg.join(' · '))+'">ΑΛΛΑΓΗ</span>':'')+esc(x.t)+'</div><div class="o"><b>ΦΟΡΕΑΣ</b>'+esc(x.org)+'</div></div><div class="r"><span class="c2 num" style="display:block">'+dm(x.pubRaw)+'</span>'+(x.expired?'<span class="cd mu">έληξε</span>':dueTxt(x))+'</div></a>';};
@@ -238,16 +265,16 @@ $('#qv').innerHTML=state.src==='c'?[['all','Όλες',C.length],['new','Νέες
 var H=function(k,l,c){return '<div class="so'+(state.sort===k?' on':'')+(c?' '+c:'')+'" data-o="'+k+'">'+l+(state.sort===k?' ↓':'')+'</div>';};
 if(state.src==='c'){
 var q=norm(state.q),L=C.filter(function(x){if(state.day&&x.expRaw!==state.day)return false;if(state.qv==='new'&&!x.isNew)return false;if(state.st==='open'&&x.expired)return false;if(state.st==='closed'&&!x.expired)return false;if(state.st==='soon'&&(x.expired||x.dd>7))return false;return !q||norm(x.t+' '+x.org+' '+x.code).indexOf(q)>=0;}).sort(function(a,b){return (a.expired-b.expired)||b.pubRaw.localeCompare(a.pubRaw);});
-$('#cnt').innerHTML=dayTag()+L.length+' διαβουλεύσεις';
+var fbC=state.qv==='new'&&!NEWC.length;if(fbC)L=C.filter(function(x){return (!state.day||x.expRaw===state.day)&&(!q||norm(x.t+' '+x.org+' '+x.code).indexOf(q)>=0);}).sort(function(a,b){return (a.expired-b.expired)||b.pubRaw.localeCompare(a.pubRaw);}).slice(0,10);$('#cnt').innerHTML=dayTag()+L.length+' διαβουλεύσεις'+(fbC?' · πιο πρόσφατες':'');
 $('#tbl').className='cons';
 $('#tbl').innerHTML='<div class="th"><div></div><div>Διαβούλευση</div><div>Φορέας</div><div class="ct">Ανάρτηση</div><div class="ct">Λήξη</div><div class="rt">Σχόλια</div><div>Κατάσταση</div></div>'+
-(L.length?L.map(function(x){return '<a class="tr'+(x.isNew||x.isUpd?'':' dim')+(x.expired?' cl':'')+'" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div><div class="t">'+pinB(x)+(x.isNew?'<span class="tg new">ΝΕΑ</span>':'')+(x.isUpd?'<span class="tg upd" title="'+esc(x.chg.join(' · '))+'">ΑΛΛΑΓΗ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.code)+'</div></div><div class="c2">'+esc(x.org)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct">'+(x.expired?'<span class="cd mu">'+esc(x.exp)+'</span>':dueTxt(x))+'</div><div class="rt num">'+x.com+'</div><div>'+(x.expired?'<span class="st ex">Έληξε</span>':'<span class="st op">Ενεργή</span>')+'</div></a>';}).join(''):'<div class="empty">Κανένα αποτέλεσμα.</div>');
+(L.length?L.map(function(x){return '<a class="tr'+(x.isNew||x.isUpd||fbC?'':' dim')+(x.expired?' cl':'')+'" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div><div class="t">'+pinB(x)+(x.isNew?'<span class="tg new">ΝΕΑ</span>':'')+(x.isUpd?'<span class="tg upd" title="'+esc(x.chg.join(' · '))+'">ΑΛΛΑΓΗ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.code)+'</div></div><div class="c2">'+esc(x.org)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct">'+(x.expired?'<span class="cd mu">'+esc(x.exp)+'</span>':dueTxt(x))+'</div><div class="rt num">'+x.com+'</div><div>'+(x.expired?'<span class="st ex">Έληξε</span>':'<span class="st op">Ενεργή</span>')+'</div></a>';}).join(''):'<div class="empty">Κανένα αποτέλεσμα.</div>');
 return;}
-var R=rows();
-$('#cnt').innerHTML=dayTag()+R.length+' διαγωνισμοί'+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
+var R=rows(),fbW=state.qv==='new'&&!NEW.length;if(fbW){state.qv='all';R=rows().filter(function(x){return x.pubRaw===latest;});state.qv='new';}
+$('#cnt').innerHTML=dayTag()+R.length+' διαγωνισμοί'+(fbW?' · πιο πρόσφατοι':'')+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
 $('#tbl').className='';
-$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','ct')+H('new','Δημοσίευση','ct')+H('dl','Προθεσμία','ct')+'<div>Κατάσταση</div></div>'+
-(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.isUpd||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="ct num">'+eurS(x.bv)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct"><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
+$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','ct')+H('new','Δημοσίευση','ct')+H('dl','Προθεσμία','ct')+'<div>Κατάσταση</div></div>'+(fbW?'<div class="note"><b>Δεν υπάρχουν νέα έργα</b> '+basis+'. Πιο πρόσφατες δημοσιεύσεις ('+dm(latest)+'):</div>':'')+
+(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.isUpd||fbW||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="ct num">'+eurS(x.bv)+'</div><div class="num c2 ct">'+dm(x.pubRaw)+'</div><div class="ct"><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
 (R.length>state.lim?'<button class="more" id="more">Εμφάνιση περισσότερων ('+(R.length-state.lim)+')</button>':'');
 }
 function go(k){
@@ -263,7 +290,7 @@ if((b=t.closest('[data-pin]'))){e.preventDefault();e.stopPropagation();var pkk=b
 if((b=t.closest('[data-cal]'))){var cv=+b.dataset.cal;if(!cv){CAL.y=TOD.getFullYear();CAL.m=TOD.getMonth();}else{CAL.m+=cv;if(CAL.m<0){CAL.m=11;CAL.y--;}if(CAL.m>11){CAL.m=0;CAL.y++;}}return drawCal();}
 if((b=t.closest('[data-day]'))){var dk=b.dataset.day;state.day=state.day===dk?null:dk;state.qv='all';state.st='all';$('#st').value='all';state.lim=40;drawCal();render();if(state.day)$('#feed').scrollIntoView({behavior:'smooth',block:'start'});return;}
 if(t.closest('[data-k],#qv button'))state.day=null;
-if((b=t.closest('[data-k]')))return go(b.dataset.k);
+if((b=t.closest('[data-mx]'))){b.previousElementSibling.classList.add('open');return;}if((b=t.closest('[data-k]')))return go(b.dataset.k);
 if((b=t.closest('#src button'))){state.src=b.dataset.s;state.qv='all';state.lim=40;[].forEach.call($('#src').children,function(z){z.classList.toggle('on',z===b);});return render();}
 if((b=t.closest('#qv button'))){state.qv=b.dataset.q;state.lim=40;if(state.src==='c'||state.qv==='new'||state.qv==='watch'||state.qv==='ms')state.st='all';$('#st').value=state.st;return render();}
 if((b=t.closest('[data-o]'))){state.sort=b.dataset.o;return render();}
