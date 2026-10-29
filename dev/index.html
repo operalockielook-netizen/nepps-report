@@ -125,7 +125,7 @@ var days=function(iso){return iso?Math.round((new Date(iso)-new Date(T))/864e5):
 // dedupe document pairs (Διακήρυξη/Προκήρυξη of the same tender)
 var seen={},U=[];
 W.forEach(function(x){var k=x.org+'|'+x.bv+'|'+x.dlRaw;if(seen[k]){seen[k].docs.push(x);return;}x.docs=[x];seen[k]=x;U.push(x);});
-var latest=U.reduce(function(m,x){return x.pubRaw>m?x.pubRaw:m;},'');
+U.forEach(function(x){var s=x.sys||(x.docs.filter(function(d){return d.sys;})[0]||{}).sys||'';x.sys=s;x.esidis=s?'https://nepps-search.eprocurement.gov.gr/actSearch/resources/search/'+s:'';});var es=function(x){return x.sys?' · <a class="x" href="'+esc(x.esidis)+'" target="_blank" rel="noopener">Τεύχη ΕΣΗΔΗΣ '+esc(x.sys)+' ↗</a>':'';};var latest=U.reduce(function(m,x){return x.pubRaw>m?x.pubRaw:m;},'');
 var last=LS.get('nepps.lastPub',null), watch=LS.get('nepps.watch',[]);
 var base=(last&&last<latest)?last:null; // new since your last visit, else latest publication day
 U.forEach(function(x){
@@ -163,7 +163,7 @@ var K=[['bl','Νέα έργα',NEW.length,basis,'new'],['bl','Π/Υ νέων έ�
 var html='<section class="kpis">'+K.map(function(k){return '<button class="kpi '+k[0]+'" data-k="'+k[4]+'"><span class="l">'+k[1]+'</span><span class="v num">'+k[2]+'</span><span class="s">'+esc(k[3])+'</span></button>';}).join('')+'</section>';
 
 var todayL=NEW.slice().sort(function(a,b){return (b.bv||0)-(a.bv||0)||byPri(a,b);}).slice(0,12);
-var li=function(x,right){return '<div class="li" data-r="'+esc(x.ref)+'"><span class="pr '+(x.pri||'l')+'"></span><div style="min-width:0"><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+'</div></div><div class="r">'+right(x)+'</div></div>';};
+var li=function(x,right){return '<div class="li" data-r="'+esc(x.ref)+'"><span class="pr '+(x.pri||'l')+'"></span><div style="min-width:0"><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="r">'+right(x)+'</div></div>';};
 html+='<div class="g2"><section class="pn"><div class="ph"><h2>Νέα έργα</h2><span class="c">'+NEW.length+' · '+basis+' · κατά ποσό</span><span class="sp"></span><span class="tot">Σύνολο <b class="num">'+eurS(newSum)+'</b></span></div>'+
 (todayL.length?todayL.map(function(x){return li(x,function(x){return '<b class="num">'+eurS(x.bv)+'</b>'+dueTxt(x);});}).join(''):'<div class="empty">Δεν υπάρχουν νέες δημοσιεύσεις έργων.</div>')+
 (NEW.length>todayL.length?'<button class="more" data-k="new">Όλα τα νέα έργα ('+NEW.length+') →</button>':'')+'</section>';
@@ -219,7 +219,7 @@ var R=rows();
 $('#cnt').textContent=R.length+' διαγωνισμοί'+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
 $('#tbl').className='';
 $('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','rt')+H('new','Δημοσ.')+H('dl','Προθεσμία')+'<div>Κατάσταση</div></div>'+
-(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="rt num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
+(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="rt num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
 (R.length>state.lim?'<button class="more" id="more">Εμφάνιση περισσότερων ('+(R.length-state.lim)+')</button>':'');
 }
 function go(k){
@@ -237,7 +237,7 @@ if((b=t.closest('#qv button'))){state.qv=b.dataset.q;state.lim=40;if(state.src==
 if((b=t.closest('[data-o]'))){state.sort=b.dataset.o;return render();}
 if(t.id==='more'){state.lim+=40;return render();}
 if((b=t.closest('[data-w]'))){var o=b.dataset.w,i=watch.indexOf(o);if(i>=0)watch.splice(i,1);else watch.push(o);LS.set('nepps.watch',watch);return render();}
-if(t.closest('.dt a'))return;
+if(t.closest('.dt a')||t.closest('a.x'))return;
 if((b=t.closest('.li[data-r]'))){state.src='w';state.qv='all';state.st='all';state.q=b.dataset.r;$('#q').value=state.q;state.openRow=b.dataset.r;$('#st').value='all';[].forEach.call($('#src').children,function(z){z.classList.toggle('on',z.dataset.s==='w');});render();$('#feed').scrollIntoView({behavior:'smooth',block:'start'});return;}
 if((b=t.closest('.tr[data-r]'))){state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;return render();}
 });
