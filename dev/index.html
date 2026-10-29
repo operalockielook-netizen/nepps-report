@@ -54,7 +54,7 @@ button,input,select{font:inherit;color:inherit}
 .tb select{padding:5px 8px;border:1px solid var(--ln);border-radius:6px;background:var(--sf);color:var(--tx2)}
 .tb input:focus,.tb select:focus{outline:2px solid var(--bl);outline-offset:-1px}
 .cnt{padding:7px 14px;font-size:12px;color:var(--tx3);border-bottom:1px solid var(--ln2)}
-.th,.tr{display:grid;grid-template-columns:22px minmax(0,1fr) 150px 122px 82px 118px 92px;gap:12px;align-items:start;padding:8px 14px}
+.th,.tr{display:grid;grid-template-columns:22px minmax(0,1fr) 150px 122px 96px 118px 92px;gap:12px;align-items:start;padding:8px 14px}
 .cons .th,.cons .tr{grid-template-columns:22px minmax(0,1fr) 230px 82px 118px 64px 84px}
 .th{position:sticky;top:48px;z-index:5;background:var(--sf2);border-bottom:1px solid var(--ln);font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding-top:7px;padding-bottom:7px}
 .th .so{cursor:pointer}.th .so:hover{color:var(--tx)}.th .so.on{color:var(--bl)}
@@ -63,7 +63,7 @@ button,input,select{font:inherit;color:inherit}
 .tr .t{font-weight:600;line-height:1.35}.tr .o{color:var(--tx2);font-size:12px;margin-top:1px}
 .tr.dim .t{font-weight:400;color:var(--tx2)}.tr.dim .o{color:var(--tx3)}
 .tr.cl{opacity:.6}
-.rt{text-align:right}.c2{color:var(--tx2)}
+.rt{text-align:right}.ct{text-align:center}.c2{color:var(--tx2)}
 .st{font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .st:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .st.op{color:var(--gr)}.st.so{color:var(--rd)}.st.cl{color:var(--tx3)}.st.ex{color:var(--tx3)}
@@ -88,7 +88,7 @@ footer{margin-top:18px;color:var(--tx3);font-size:11.5px;display:flex;gap:16px;f
 .tr,.cons .tr{grid-template-columns:12px minmax(0,1fr) auto;grid-template-areas:"p t t" "p c v" "p d s";gap:4px 10px;padding:11px 12px}
 .tr>:nth-child(1){grid-area:p}.tr>:nth-child(2){grid-area:t}.tr>:nth-child(3){grid-area:c;font-size:12px}.tr>:nth-child(4){grid-area:v}.tr>:nth-child(5){display:none}.tr>:nth-child(6){grid-area:d}.tr>:nth-child(7){grid-area:s;text-align:right}
 .cons .tr>:nth-child(3){grid-area:c}.cons .tr>:nth-child(4){display:none}.cons .tr>:nth-child(5){grid-area:d}.cons .tr>:nth-child(6){display:none}.cons .tr>:nth-child(7){grid-area:s;text-align:right}
-.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
+.tr .ct{text-align:right}.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -218,8 +218,8 @@ return;}
 var R=rows();
 $('#cnt').textContent=R.length+' διαγωνισμοί'+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
 $('#tbl').className='';
-$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','rt')+H('new','Δημοσ.')+H('dl','Προθεσμία')+'<div>Κατάσταση</div></div>'+
-(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="rt num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
+$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','ct')+H('new','Δημοσίευση')+H('dl','Προθεσμία')+'<div>Κατάσταση</div></div>'+
+(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+es(x)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="ct num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
 (R.length>state.lim?'<button class="more" id="more">Εμφάνιση περισσότερων ('+(R.length-state.lim)+')</button>':'');
 }
 function go(k){
