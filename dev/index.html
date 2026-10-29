@@ -132,7 +132,7 @@ footer{flex-direction:column;gap:6px}
 <div class="sp"></div>
 <div class="meta x" id="since"></div>
 <div class="meta upd"><span class="dot"></span>Ενημέρωση <b id="upd">—</b></div>
-<a class="meta rf" id="rf" href="https://github.com/operalockielook-netizen/nepps-monitor/actions/workflows/refresh_dashboard.yml" target="_blank" rel="noopener" title="Νέα ενημέρωση τώρα, χωρίς email (διαρκεί λίγα λεπτά)">↻<span class="hm"> Ενημέρωση τώρα</span></a><a class="meta" href="../">Κλασική<span class="hm"> προβολή</span></a>
+<a class="meta rf" id="rf" href="#" role="button" title="Νέα ενημέρωση τώρα, χωρίς email (διαρκεί λίγα λεπτά)">↻<span class="hm"> Ενημέρωση τώρα</span></a><a class="meta" href="../">Κλασική<span class="hm"> προβολή</span></a>
 </header>
 <main class="wrap" id="app"><div class="empty">Φόρτωση δεδομένων…</div></main>
 <script>
@@ -302,7 +302,7 @@ if((b=t.closest('.tr[data-r]'))){state.openRow=state.openRow===b.dataset.r?null:
 });
 document.addEventListener('keydown',function(e){var b=e.target.closest&&e.target.closest('.tr[data-r]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;render();var n=$('.tr[data-r="'+b.dataset.r+'"]');if(n)n.focus();}});
 function waitUpd(){var w=0;try{w=+sessionStorage.getItem('nepps.wait')||0;}catch(e){}if(!w||Date.now()-w>12e5||waitUpd.t)return;var el=$('#rf');el.textContent='⏳ Ενημέρωση σε εξέλιξη…';waitUpd.t=setInterval(function(){if(Date.now()-w>12e5){clearInterval(waitUpd.t);el.textContent='↻ Ενημέρωση τώρα';return;}fetch('../index.html?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var m=/"run": "([^"]+)"/.exec(h);if(m&&m[1]!==M.run){try{sessionStorage.removeItem('nepps.wait');}catch(e){}location.reload();}});},30000);}
-$('#rf').addEventListener('click',function(){try{sessionStorage.setItem('nepps.wait',String(Date.now()));}catch(e){}waitUpd();});waitUpd();
+$('#rf').addEventListener('click',function(e){e.preventDefault();if(waitUpd.t||waitUpd.busy)return;var el=$('#rf');waitUpd.busy=1;el.textContent='⏳ Αποστολή…';fetch('/api/refresh',{method:'POST',credentials:'same-origin'}).then(function(r){return r.json().catch(function(){return {};}).then(function(j){if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));});}).then(function(){waitUpd.busy=0;try{sessionStorage.setItem('nepps.wait',String(Date.now()));}catch(x){}waitUpd();}).catch(function(err){waitUpd.busy=0;el.innerHTML='↻<span class="hm"> Ενημέρωση τώρα</span>';alert('Η ενημέρωση δεν ξεκίνησε ('+err.message+'). Δοκιμάστε ξανά σε λίγο.');});});waitUpd();
 $('#q').addEventListener('input',function(e){state.auto=false;state.q=e.target.value;state.lim=40;render();});
 ['cat','st','val'].forEach(function(id){$('#'+id).addEventListener('change',function(e){if(state.auto){state.auto=false;state.q='';$('#q').value='';}state[id]=e.target.value;state.lim=40;render();});});
 render();
