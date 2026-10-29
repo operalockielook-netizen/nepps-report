@@ -1,221 +1,251 @@
 <!doctype html>
-<html lang="el" dir="ltr">
+<html lang="el">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>NEPPS ΤΠΕ · DEV νέος σχεδιασμός</title><meta name="robots" content="noindex">
+<meta name="robots" content="noindex">
+<title>NEPPS Intelligence · ΤΠΕ Δημοσίου</title>
 <style>
-:root{--bg:#f4f6f9;--card:#fff;--ink:#16202a;--muted:#5f6b77;--line:#e3e8ee;--brand:#0f6cbd;--brand2:#115ea3;--accent:#e8f1fb;--ok:#107c10;--warn:#c4590a;--crit:#c50f1f;--chip:#eef2f6;--shadow:0 1px 2px rgba(0,0,0,.05),0 4px 14px rgba(15,40,70,.06);}
-@media (prefers-color-scheme:dark){:root{--bg:#111418;--card:#1a1f25;--ink:#e8ecf0;--muted:#9aa5b1;--line:#2a313a;--accent:#16263a;--chip:#232a33;}}
+:root{--bg:#f7f7f8;--sf:#fff;--sf2:#fafafa;--ln:#e6e6e9;--ln2:#f0f0f2;--tx:#1f1f23;--tx2:#5c5c66;--tx3:#8a8a94;--bl:#0f6cbd;--blbg:#ebf3fc;--rd:#c50f1f;--rdbg:#fdf3f4;--am:#a35200;--ambg:#fff6e6;--gr:#0e7a0d;--grbg:#f1faf1;--sh:0 1px 2px rgba(0,0,0,.04);--r:8px}
+@media(prefers-color-scheme:dark){:root{--bg:#141416;--sf:#1c1c1f;--sf2:#202024;--ln:#2e2e33;--ln2:#26262a;--tx:#ececf0;--tx2:#a6a6b0;--tx3:#7a7a84;--bl:#4ba3f5;--blbg:#162638;--rd:#f1707b;--rdbg:#331a1d;--am:#f0a54a;--ambg:#33270f;--gr:#6ccb5f;--grbg:#16291a}}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
-a{color:var(--brand);text-decoration:none}
-a:hover{text-decoration:underline}
-.switch{position:sticky;inset-block-start:0;z-index:50;background:#0b1620;color:#fff;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 16px;font-size:13px}
-.switch b{margin-inline-end:6px;opacity:.8;font-weight:600}
-.switch button{background:#1f3347;color:#fff;border:1px solid #2f4a63;border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit}
-.switch button.on{background:#fff;color:#0b1620;font-weight:700}
-.switch .note{margin-inline-start:auto;opacity:.65;font-size:12px}
-.wrap{max-width:1240px;margin:0 auto;padding:20px 18px 60px}
-.chip{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--muted);font-size:11.5px;font-weight:600;margin-inline-end:4px;white-space:nowrap}
-.chip.ms{background:#e7f3e7;color:#0e700e}
-.chip.big{background:var(--accent);color:var(--brand)}
-.chip.crit{background:#fde7e9;color:var(--crit)}
-.chip.warn{background:#fff1e5;color:var(--warn)}
-.muted{color:var(--muted)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
-h2{font-size:17px;margin:0 0 12px}
-h3{font-size:14px;margin:0 0 10px}
-.view{display:none}.view.on{display:block}
-
-.tabs{display:flex;gap:4px;border-block-end:1px solid var(--line);margin-block:26px 14px;flex-wrap:wrap}
-.tabs button{border:0;background:none;padding:10px 14px;font:inherit;font-weight:600;color:var(--muted);cursor:pointer;border-block-end:3px solid transparent}
-.tabs button.on{color:var(--brand);border-block-end-color:var(--brand)}
-.tabs .n{background:var(--chip);border-radius:999px;padding:1px 8px;font-size:11px;margin-inline-start:6px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-block-end:12px}
-.filters input,.filters select{padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font:inherit}
-.filters input{flex:1 1 260px}
-.rows .row{display:grid;grid-template-columns:1fr 150px 120px 110px;gap:14px;padding:12px 14px;border-block-end:1px solid var(--line);align-items:start}
-.rows .row:last-child{border-block-end:0}
-.rows .row .t{font-weight:600}
-.rows .row .o{color:var(--muted);font-size:12.5px;margin-block-start:2px}
-.rows .num{text-align:end;font-variant-numeric:tabular-nums;font-weight:600}
-.rows .hdr{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;background:var(--bg)}
-.more{display:block;margin:12px auto 0;padding:9px 18px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;cursor:pointer;font:inherit}
-@media (max-width:760px){.rows .row{grid-template-columns:1fr}.rows .num{text-align:start}.rows .hdr{display:none}}
-
-.a-hero{background:linear-gradient(120deg,#0f6cbd,#0b4a8a);color:#fff;border-radius:18px;padding:26px 28px;display:grid;grid-template-columns:1.4fr 1fr;gap:26px}
-.a-hero h1{margin:0;font-size:26px}
-.a-hero .date{opacity:.85;margin-block-start:4px}
-.a-hero ul{margin:16px 0 0;padding-inline-start:18px}
-.a-hero li{margin-block-end:7px}
-.a-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.a-kpi{background:rgba(255,255,255,.12);border-radius:12px;padding:12px 14px}
-.a-kpi .v{font-size:22px;font-weight:700}
-.a-kpi .l{font-size:12px;opacity:.85}
-.a-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-block-start:18px}
-.top li{list-style:none;padding:11px 0;border-block-end:1px solid var(--line);display:flex;gap:12px}
-.top li:last-child{border:0}
-.top ol{margin:0;padding:0}
-.rank{flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent);color:var(--brand);font-weight:700;display:grid;place-items:center}
-.top .amt{margin-inline-start:auto;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
-.tl{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;align-items:end;height:130px;margin-block-start:8px}
-.tl .d{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:3px}
-.tl .b{width:100%;border-radius:4px 4px 0 0;background:var(--brand);min-height:3px}
-.tl .b.today{background:var(--crit)}
-.tl .x{font-size:10px;color:var(--muted)}
-.tl .c{font-size:10px;font-weight:700}
-.dl li{list-style:none;padding:8px 0;border-block-end:1px solid var(--line);font-size:13px}
-.dl ul{margin:0;padding:0}
-
-.vB{--bg:#0d1117;--card:#161b22;--ink:#e6edf3;--muted:#8b98a5;--line:#262d36;--accent:#13283f;--chip:#21262d;--brand:#58a6ff;background:var(--bg);color:var(--ink);margin:-20px -18px -60px;padding:20px 18px 60px;min-height:100vh}
-.b-shell{display:grid;grid-template-columns:240px 1fr;gap:18px}
-.b-side{position:sticky;inset-block-start:56px;align-self:start;padding:16px}
-.b-side h1{font-size:16px;margin:0 0 2px}
-.b-side label{display:block;font-size:12px;color:var(--muted);margin:14px 0 5px;font-weight:600}
-.b-side select,.b-side input{width:100%;padding:8px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;font:inherit}
-.b-side .tg{display:flex;flex-wrap:wrap;gap:6px}
-.b-side .tg button{background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer}
-.b-side .tg button.on{background:var(--brand);color:#0d1117;border-color:var(--brand)}
-.b-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.b-kpi{padding:14px}
-.b-kpi .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
-.b-kpi .v{font-size:24px;font-weight:700;margin-block-start:4px}
-.b-kpi .s{font-size:12px;color:var(--muted)}
-.b-charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-block:12px}
-.hb{display:grid;grid-template-columns:150px 1fr 90px;gap:8px;align-items:center;font-size:12.5px;margin-block-end:7px}
-.hb .tr{background:var(--chip);border-radius:5px;height:14px;overflow:hidden}
-.hb .f{height:100%;background:linear-gradient(90deg,#58a6ff,#3fb950);border-radius:5px}
-.hb .v{text-align:end;font-variant-numeric:tabular-nums;color:var(--muted)}
-.hb .k{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vB .rows .hdr{background:#0d1117}
-
-.c-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
-.c-head h1{margin:0;font-size:24px}
-.c-brief{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-block:16px}
-.c-brief .card{padding:14px 16px;border-block-start:4px solid var(--brand)}
-.c-brief .v{font-size:22px;font-weight:700}
-.c-board{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:12px;overflow-x:auto;padding-block-end:6px}
-.col{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;max-height:760px;overflow:auto}
-.col h3{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 10px;margin:0;position:sticky;inset-block-start:-10px;background:var(--card)}
-.col.k1 h3{color:var(--crit)}.col.k2 h3{color:var(--warn)}.col.k3 h3{color:var(--brand)}.col.k4 h3{color:var(--ok)}
-.tk{border:1px solid var(--line);border-radius:10px;padding:10px 11px;margin-block-end:8px;background:var(--bg);border-inline-start:4px solid var(--line)}
-.tk.big{border-inline-start-color:var(--brand)}
-.tk.huge{border-inline-start-color:#8a3ffc}
-.tk .t{font-weight:600;font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.tk .o{font-size:12px;color:var(--muted);margin-block:3px 6px}
-.tk .m{display:flex;justify-content:space-between;font-size:12px}
-.tk .m b{font-variant-numeric:tabular-nums}
-@media (max-width:900px){.a-hero,.a-grid,.b-shell,.b-charts{grid-template-columns:1fr}.b-kpis,.c-brief{grid-template-columns:1fr 1fr}.b-side{position:static}}
+body{margin:0;background:var(--bg);color:var(--tx);font:13px/1.45 "Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--bl);text-decoration:none}a:hover{text-decoration:underline}
+button,input,select{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.top{position:sticky;top:0;z-index:30;background:var(--sf);border-bottom:1px solid var(--ln);height:48px;display:flex;align-items:center;gap:14px;padding:0 20px}
+.logo{width:22px;height:22px;border-radius:5px;background:var(--bl);display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px}
+.brand{font-weight:600;font-size:14px}.brand span{color:var(--tx3);font-weight:400;margin-left:6px}
+.top .sp{flex:1}.top .meta{color:var(--tx2);font-size:12px}.top .meta b{color:var(--tx);font-weight:600}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gr);margin-right:6px;vertical-align:1px}
+.wrap{max-width:1440px;margin:0 auto;padding:16px 20px 40px}
+.kpis{display:grid;grid-template-columns:repeat(7,1fr);background:var(--sf);border:1px solid var(--ln);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.kpi{all:unset;cursor:pointer;padding:10px 14px;border-right:1px solid var(--ln2);display:flex;flex-direction:column;gap:1px}
+.kpi:last-child{border-right:0}.kpi:hover{background:var(--sf2)}.kpi:focus-visible{outline:2px solid var(--bl);outline-offset:-2px}
+.kpi .l{font-size:11.5px;color:var(--tx2)}.kpi .v{font-size:20px;font-weight:600;letter-spacing:-.01em}.kpi .s{font-size:11px;color:var(--tx3)}
+.kpi.bl .v{color:var(--bl)}.kpi.rd .v{color:var(--rd)}.kpi.am .v{color:var(--am)}
+.g2{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;margin-top:16px}
+.pn{background:var(--sf);border:1px solid var(--ln);border-radius:var(--r);box-shadow:var(--sh)}
+.ph{display:flex;align-items:baseline;gap:8px;padding:11px 14px;border-bottom:1px solid var(--ln2)}
+.ph h2{margin:0;font-size:13.5px;font-weight:600}.ph .c{color:var(--tx3);font-size:12px}.ph .sp{flex:1}.ph .lk{font-size:12px;cursor:pointer;background:none;border:0;color:var(--bl);padding:0}
+.li{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:8px;align-items:start;padding:8px 14px;border-bottom:1px solid var(--ln2);cursor:pointer}
+.li:last-child{border-bottom:0}.li:hover{background:var(--sf2)}
+.li .t{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.li .o{color:var(--tx2);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li .r{text-align:right;white-space:nowrap;font-size:12px}.li .r b{display:block;font-weight:600;font-size:12.5px}
+.pr{width:8px;height:8px;border-radius:2px;margin-top:5px;background:var(--ln)}.pr.h{background:var(--rd)}.pr.m{background:var(--am)}.pr.l{background:var(--ln)}
+.cd{font-size:11.5px;font-weight:600;white-space:nowrap}.cd.rd{color:var(--rd)}.cd.am{color:var(--am)}.cd.mu{color:var(--tx3);font-weight:400}
+.tg{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.02em;padding:1px 5px;border-radius:4px;vertical-align:1px;margin-right:6px}
+.tg.new{background:var(--blbg);color:var(--bl)}.tg.upd{background:var(--ambg);color:var(--am)}.tg.ms{background:var(--grbg);color:var(--gr)}.tg.st{background:none;color:var(--am);padding:0;font-size:12px}
+.side{display:flex;flex-direction:column;gap:16px}
+.empty{padding:16px 14px;color:var(--tx3)}
+.feed{margin-top:16px}
+.tb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--ln)}
+.seg{display:inline-flex;border:1px solid var(--ln);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--sf);padding:5px 11px;cursor:pointer;border-right:1px solid var(--ln);color:var(--tx2)}
+.seg button:last-child{border-right:0}.seg button.on{background:var(--tx);color:var(--sf);font-weight:600}
+.qv{display:flex;gap:4px;flex-wrap:wrap}
+.qv button{border:1px solid transparent;background:none;padding:4px 9px;border-radius:6px;cursor:pointer;color:var(--tx2)}
+.qv button:hover{background:var(--sf2)}.qv button.on{background:var(--blbg);color:var(--bl);font-weight:600}
+.qv .n{color:var(--tx3);margin-left:4px;font-weight:400}
+.tb .sp{flex:1}
+.tb input[type=search]{width:240px;padding:5px 10px;border:1px solid var(--ln);border-radius:6px;background:var(--sf)}
+.tb select{padding:5px 8px;border:1px solid var(--ln);border-radius:6px;background:var(--sf);color:var(--tx2)}
+.tb input:focus,.tb select:focus{outline:2px solid var(--bl);outline-offset:-1px}
+.cnt{padding:7px 14px;font-size:12px;color:var(--tx3);border-bottom:1px solid var(--ln2)}
+.th,.tr{display:grid;grid-template-columns:22px minmax(0,1fr) 150px 108px 82px 118px 92px;gap:12px;align-items:start;padding:8px 14px}
+.cons .th,.cons .tr{grid-template-columns:22px minmax(0,1fr) 82px 118px 70px 92px}
+.th{position:sticky;top:48px;z-index:5;background:var(--sf2);border-bottom:1px solid var(--ln);font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:.04em;padding-top:7px;padding-bottom:7px}
+.th .so{cursor:pointer}.th .so:hover{color:var(--tx)}.th .so.on{color:var(--bl)}
+.tr{border-bottom:1px solid var(--ln2);cursor:pointer}
+.tr:hover{background:var(--sf2)}.tr.op{background:var(--sf2)}
+.tr .t{font-weight:600;line-height:1.35}.tr .o{color:var(--tx2);font-size:12px;margin-top:1px}
+.tr.dim .t{font-weight:400;color:var(--tx2)}.tr.dim .o{color:var(--tx3)}
+.tr.cl{opacity:.6}
+.rt{text-align:right}.c2{color:var(--tx2)}
+.st{font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.st:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.st.op{color:var(--gr)}.st.so{color:var(--rd)}.st.cl{color:var(--tx3)}.st.ex{color:var(--tx3)}
+.dt{display:none;padding:4px 14px 14px 48px;border-bottom:1px solid var(--ln);background:var(--sf2)}
+.dt.on{display:block}
+.dg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 20px;margin-bottom:10px}
+.dg div span{display:block;font-size:11px;color:var(--tx3)}
+.why{font-size:12px;color:var(--tx2);margin-bottom:10px}.why b{color:var(--tx)}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--ln);background:var(--sf);border-radius:6px;padding:5px 11px;cursor:pointer;color:var(--tx);font-weight:500}
+.btn:hover{border-color:var(--tx3);text-decoration:none}.btn.pri{background:var(--bl);border-color:var(--bl);color:#fff}
+.more{display:block;width:100%;padding:10px;border:0;border-top:1px solid var(--ln2);background:var(--sf);color:var(--bl);cursor:pointer;font-weight:600;border-radius:0 0 var(--r) var(--r)}
+.more:hover{background:var(--sf2)}
+footer{margin-top:18px;color:var(--tx3);font-size:11.5px;display:flex;gap:16px;flex-wrap:wrap}
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(4,1fr)}.kpi:nth-child(4){border-right:0}.kpi:nth-child(n+5){border-top:1px solid var(--ln2)}.g2{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}}
+@media(max-width:860px){
+.top .meta.x{display:none}.wrap{padding:12px}
+.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-top:1px solid var(--ln2);border-right:1px solid var(--ln2)}.kpi:nth-child(-n+2){border-top:0}.kpi:nth-child(2n){border-right:0}
+.side{display:flex}
+.tb input[type=search]{width:100%;order:-1}.tb .sp{display:none}
+.th{display:none}
+.tr,.cons .tr{grid-template-columns:12px minmax(0,1fr) auto;grid-template-areas:"p t t" "p c v" "p d s";gap:4px 10px;padding:11px 12px}
+.tr>:nth-child(1){grid-area:p}.tr>:nth-child(2){grid-area:t}.tr>:nth-child(3){grid-area:c;font-size:12px}.tr>:nth-child(4){grid-area:v}.tr>:nth-child(5){display:none}.tr>:nth-child(6){grid-area:d}.tr>:nth-child(7){grid-area:s;text-align:right}
+.cons .tr>:nth-child(3){display:none}.cons .tr>:nth-child(4){grid-area:d}.cons .tr>:nth-child(5){grid-area:c}.cons .tr>:nth-child(6){grid-area:s;text-align:right}
+.dt{padding:4px 12px 14px 34px}.dg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-<div class="switch"><b>Πρόταση:</b>
-<button data-v="A" class="on">A · Executive Briefing + Explorer</button>
-<button data-v="B">B · Command Center (dark)</button>
-<button data-v="C">C · Pipeline προθεσμιών</button>
-<span class="note">DEV preview · ίδια δεδομένα με την <a href="../" style="color:#9cd0ff">τρέχουσα σελίδα</a></span></div>
-<div class="wrap">
-<section class="view on" id="vA"></section>
-<section class="view vB" id="vB"></section>
-<section class="view" id="vC"></section>
-</div>
+<header class="top">
+<div class="logo">N</div><div class="brand">NEPPS Intelligence<span>Δημόσιο · ΤΠΕ</span></div>
+<div class="sp"></div>
+<div class="meta x" id="since"></div>
+<div class="meta"><span class="dot"></span>Ενημέρωση <b id="upd">—</b></div>
+<a class="meta x" href="../">Κλασική προβολή</a>
+</header>
+<main class="wrap" id="app"><div class="empty">Φόρτωση δεδομένων…</div></main>
 <script>
-function boot(DATA){
-const W=DATA.works,C=DATA.cons,M=DATA.meta,T=M.today;
-const $=s=>document.querySelector(s);
-const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const eur=n=>new Intl.NumberFormat('el-GR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n||0);
-const eurS=n=>n>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+' εκ. €':n>=1e3?Math.round(n/1e3)+' χιλ. €':eur(n);
-const days=d=>Math.round((new Date(d)-new Date(T))/864e5);
-const fmt=iso=>iso?iso.slice(8,10)+'/'+iso.slice(5,7):'—';
-const tc=s=>s.trim().replace(/\s+/g,' ');
-const CATS=[['Κυβερνοασφάλεια',/κυβερνοασφ|firewall|ασφάλει(ας|α) (πληροφ|δικτ)|vpn|microsegment|siem|soc\b|cyber/i],['Άδειες λογισμικού',/άδει(ες|ών) χρήσης|αδειων χρησης|licen|microsoft|enterprise agreement|συνδρομ/i],['Ψηφιακός μετασχηματισμός',/ψηφιακ(ού|ος|ής) μετασχ|marketplace|market place|έξυπνων πόλεων|ευφυ/i],['Cloud & Data center',/cloud|νέφο|κέντρο(υ)? δεδομένων|data ?center|disaster|server|αποθηκευτ/i],['Εξοπλισμός ΤΠΕ',/εξοπλισμ|υπολογιστ|switch|h\/y|hardware|εκτυπωτ/i],['Εφαρμογές & ΠΣ',/λογισμικ|πληροφοριακ|εφαρμογ|πλατφόρμ|σύστημα|ΟΠΣ|ΠΣ /i]];
-const cat=x=>{for(const[c,r]of CATS)if(r.test(x.t))return c;return 'Λοιπά ΤΠΕ';};
-const isMS=x=>/microsoft|azure|m365|office 365|dynamics|enterprise agreement|copilot/i.test(x.t);
-W.forEach(x=>{x.cat=cat(x);x.ms=isMS(x);x.open=x.dlRaw>=T;x.dd=days(x.dlRaw);x.tt=tc(x.t);});
-// dedupe Διακήρυξη/Προκήρυξη pairs
-const seen={},U=[];W.forEach(x=>{const k=x.org+'|'+x.bv+'|'+x.dlRaw;if(seen[k]){seen[k].docs++;return;}x.docs=1;seen[k]=x;U.push(x);});
-const open=U.filter(x=>x.open), bigOpen=open.filter(x=>x.big);
-const newest=U.reduce((m,x)=>x.pubRaw>m?x.pubRaw:m,'');
-const last3=U.filter(x=>days(x.pubRaw)>=-2);
-const week=open.filter(x=>x.dd<=7);
-const activeC=C.filter(x=>!x.expired);
-const pipe=bigOpen.reduce((s,x)=>s+x.bv,0);
-const msN=open.filter(x=>x.ms);
-const chips=(x,nc)=>(x.dd===0?'<span class="chip crit">λήγει σήμερα</span>':x.dd>0&&x.dd<=3?'<span class="chip crit">λήγει σε '+x.dd+'η</span>':x.dd>=0&&x.dd<=7?'<span class="chip warn">'+x.dd+' ημέρες</span>':'')+(x.ms?'<span class="chip ms">Microsoft</span>':'')+(nc?'':'<span class="chip">'+esc(x.cat)+'</span>')+(x.docs>1?'<span class="chip">'+x.docs+' έγγραφα</span>':'')+(x.post?'<span class="chip warn">παράταση</span>':'');
-const link=x=>esc(x.esidis||x.dekiryxi);
+(function(){
+'use strict';
+var LS={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+var $=function(s,r){return (r||document).querySelector(s);};
+var esc=function(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+var norm=function(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ς/g,'σ');};
+var eur=function(n){return n?new Intl.NumberFormat('el-GR',{maximumFractionDigits:0}).format(n)+' €':'—';};
+var eurS=function(n){if(!n)return '—';if(n>=1e6)return (n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+' εκ. €';if(n>=1e3)return Math.round(n/1e3)+' χιλ. €';return Math.round(n)+' €';};
+var dm=function(iso){return iso?iso.slice(8,10)+'/'+iso.slice(5,7):'—';};
+var CATS=[['Cloud & Data Center',/cloud|νεφο|κεντρο(υ)? δεδομενων|data ?cent|disaster|server|αποθηκευτ|backup/],
+['Κυβερνοασφάλεια',/κυβερνοασφ|firewall|ασφαλει(α|ασ) (πληροφ|δικτ|συστημ)|vpn|microsegment|siem|\bsoc\b|cyber|antivirus|endpoint/],
+['Άδειες λογισμικού',/αδει(εσ|ων) χρησησ|licen|microsoft|enterprise agreement|συνδρομ/],
+['Δεδομένα & AI',/τεχνητ(ησ|η) νοημοσυν|\bai\b|chatbot|αναλυτικ|business intelligence|\bbi\b|δεδομενων/],
+['Ψηφιακός μετασχηματισμός',/ψηφιακ(ου|οσ|ησ) μετασχ|market ?place|εξυπνων πολεων|ευφυ|smart/],
+['Εξοπλισμός ΤΠΕ',/εξοπλισμ|υπολογιστ|switch|hardware|εκτυπωτ|laptop|οθον/],
+['Εφαρμογές & ΠΣ',/λογισμικ|πληροφοριακ|εφαρμογ|πλατφορμ|συστημα|οπσ|\berp\b|\bcrm\b|ιστοσελιδ|portal/]];
+var STRAT={'Cloud & Data Center':1,'Κυβερνοασφάλεια':1,'Άδειες λογισμικού':1,'Δεδομένα & AI':1,'Ψηφιακός μετασχηματισμός':1};
+var MS=/microsoft|azure|\bm365\b|office 365|dynamics|enterprise agreement|copilot|power bi|sharepoint|\bwindows\b/;
 
-function explorer(root,id){
-const tabs=[['big','Έργα ≥ 80K',U.filter(x=>x.big)],['small','Μικρότερα',U.filter(x=>!x.big)],['cons','Διαβουλεύσεις',C],['post','Παρατάσεις',U.filter(x=>x.post)]];
-root.insertAdjacentHTML('beforeend','<div class="tabs" id="'+id+'t">'+tabs.map((t,i)=>'<button data-k="'+t[0]+'" class="'+(i?'':'on')+'">'+t[1]+'<span class="n">'+t[2].length+'</span></button>').join('')+'</div>'+
-'<div class="filters"><input id="'+id+'q" type="search" placeholder="Αναζήτηση σε τίτλο, φορέα, κωδικό…"><select id="'+id+'s"><option value="open">Μόνο ανοιχτά</option><option value="all">Όλα</option></select><select id="'+id+'c"><option value="">Όλες οι κατηγορίες</option>'+CATS.map(c=>'<option>'+c[0]+'</option>').join('')+'<option>Λοιπά ΤΠΕ</option></select><select id="'+id+'o"><option value="dl">Ταξινόμηση: προθεσμία</option><option value="bv">Προϊπολογισμός ↓</option><option value="pub">Πιο πρόσφατα</option></select></div>'+
-'<div class="card rows" id="'+id+'r"></div><button class="more" id="'+id+'m">Εμφάνιση περισσότερων</button>');
-let k='big',lim=25;
-const draw=()=>{
-const q=$('#'+id+'q').value.toLowerCase(),st=$('#'+id+'s').value,ct=$('#'+id+'c').value,o=$('#'+id+'o').value;
-let L;
-if(k==='cons'){L=C.filter(x=>(st==='all'||!x.expired)&&(!q||(x.t+x.org).toLowerCase().includes(q)));
-$('#'+id+'r').innerHTML='<div class="row hdr"><div>Διαβούλευση</div><div>Ανάρτηση</div><div>Λήξη</div><div class="num">Σχόλια</div></div>'+L.slice(0,lim).map(x=>'<div class="row"><div><a class="t" href="'+esc(x.url)+'">'+esc(tc(x.t))+'</a><div class="o">'+esc(x.org)+'</div></div><div>'+esc(x.pub)+'</div><div>'+(x.expired?'<span class="chip">έληξε</span>':'<span class="chip big">'+esc(x.exp)+'</span>')+'</div><div class="num">'+x.com+'</div></div>').join('');}
-else{L=tabs.find(t=>t[0]===k)[2].filter(x=>(st==='all'||x.open)&&(!ct||x.cat===ct)&&(!q||(x.t+x.org+x.ref).toLowerCase().includes(q)));
-L.sort(o==='bv'?(a,b)=>b.bv-a.bv:o==='pub'?(a,b)=>b.pubRaw.localeCompare(a.pubRaw):(a,b)=>a.dlRaw.localeCompare(b.dlRaw));
-$('#'+id+'r').innerHTML='<div class="row hdr"><div>Έργο / Φορέας</div><div>Κατηγορία</div><div>Προθεσμία</div><div class="num">Π/Υ</div></div>'+(L.length?L.slice(0,lim).map(x=>'<div class="row"><div><a class="t" href="'+link(x)+'">'+esc(x.tt)+'</a><div class="o">'+esc(x.org)+' · '+esc(x.type)+'</div><div style="margin-top:5px">'+chips(x,1)+'</div></div><div class="muted">'+esc(x.cat)+'</div><div>'+esc(x.dl)+'</div><div class="num">'+esc(x.bud)+'</div></div>').join(''):'<div class="row"><div class="muted">Δεν βρέθηκαν αποτελέσματα.</div></div>');}
-$('#'+id+'m').style.display=L.length>lim?'block':'none';
-};
-$('#'+id+'t').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;k=b.dataset.k;lim=25;[...$('#'+id+'t').children].forEach(c=>c.classList.toggle('on',c===b));draw();});
-['q','s','c','o'].forEach(s=>$('#'+id+s).addEventListener('input',()=>{lim=25;draw();}));
-$('#'+id+'m').addEventListener('click',()=>{lim+=25;draw();});
-draw();
+function boot(D){
+var M=D.meta,T=M.today,W=D.works,C=D.cons;
+var days=function(iso){return iso?Math.round((new Date(iso)-new Date(T))/864e5):null;};
+// dedupe document pairs (Διακήρυξη/Προκήρυξη of the same tender)
+var seen={},U=[];
+W.forEach(function(x){var k=x.org+'|'+x.bv+'|'+x.dlRaw;if(seen[k]){seen[k].docs.push(x);return;}x.docs=[x];seen[k]=x;U.push(x);});
+var latest=U.reduce(function(m,x){return x.pubRaw>m?x.pubRaw:m;},'');
+var last=LS.get('nepps.lastPub',null), watch=LS.get('nepps.watch',[]);
+var base=(last&&last<latest)?last:null; // new since your last visit, else latest publication day
+U.forEach(function(x){
+var n=norm(x.t);x.cat='Λοιπά ΤΠΕ';for(var i=0;i<CATS.length;i++)if(CATS[i][1].test(n)){x.cat=CATS[i][0];break;}
+x.ms=MS.test(n);x.dd=days(x.dlRaw);x.open=x.dd!==null&&x.dd>=0;
+x.isNew=base?x.pubRaw>base:x.pubRaw===latest;
+var s=0,why=[];
+if(x.bv>=1e6){s+=3;why.push('Π/Υ ≥ 1 εκ. €');}else if(x.bv>=3e5){s+=2;why.push('Π/Υ ≥ 300 χιλ. €');}else if(x.bv>=8e4){s+=1;why.push('Π/Υ ≥ 80 χιλ. €');}
+if(x.ms){s+=3;why.push('ρητή αναφορά σε Microsoft');}
+if(STRAT[x.cat]){s+=1;why.push('στρατηγική κατηγορία: '+x.cat);}
+if(x.open&&x.dd<=7&&x.big){s+=1;why.push('προθεσμία σε '+x.dd+' ημ.');}
+x.score=x.open?s:0;x.pri=!x.open?'':s>=4?'h':s>=2?'m':'l';x.why=why;
+});
+C.forEach(function(x){x.dd=days(x.expRaw);x.isNew=base?x.pubRaw>base:x.pubRaw>=latest;});
+LS.set('nepps.lastPub',latest);
+var open=U.filter(function(x){return x.open;});
+var NEW=U.filter(function(x){return x.isNew;});
+var soon=open.filter(function(x){return x.dd<=7;});
+var high=open.filter(function(x){return x.pri==='h';});
+var bigOpen=open.filter(function(x){return x.big;});
+var actC=C.filter(function(x){return !x.expired;});
+var pipe=bigOpen.reduce(function(s,x){return s+(x.bv||0);},0);
+var byPri=function(a,b){return b.score-a.score||(b.bv||0)-(a.bv||0);};
+var dueTxt=function(x){if(x.dd===null)return '<span class="cd mu">—</span>';if(x.dd<0)return '<span class="cd mu">έληξε '+dm(x.dlRaw||x.expRaw)+'</span>';if(x.dd===0)return '<span class="cd rd">Λήγει σήμερα</span>';if(x.dd===1)return '<span class="cd rd">Αύριο</span>';return '<span class="cd '+(x.dd<=3?'rd':x.dd<=7?'am':'mu')+'">'+x.dd+' ημέρες</span>';};
+var tags=function(x){return (x.isNew?'<span class="tg new">ΝΕΟ</span>':'')+(x.post?'<span class="tg upd">ΠΑΡΑΤΑΣΗ</span>':'')+(x.ms?'<span class="tg ms">MICROSOFT</span>':'')+(watch.indexOf(x.org)>=0?'<span class="tg st">★</span>':'');};
+var basis=base?'από την τελευταία σας επίσκεψη':'δημοσιεύσεις '+dm(latest);
+
+$('#upd').textContent=M.date;
+$('#since').innerHTML=base?'Νέα από την τελευταία επίσκεψη: <b>'+NEW.length+'</b>':'Τελευταία δημοσίευση στο ΚΗΜΔΗΣ: <b>'+dm(latest)+'</b>';
+
+var state={src:'w',qv:'all',q:'',cat:'',st:'open',val:'0',sort:'pri',lim:40,openRow:null};
+var K=[['bl','Νέα',NEW.length,basis,'new'],['rd','Λήγουν ≤ 7 ημ.',soon.length,soon.filter(function(x){return x.dd<=2;}).length+' σε ≤ 2 ημέρες','soon'],['am','Υψηλή προτεραιότητα',high.length,'ανοιχτά','high'],['','Ανοιχτά ≥ 80K',bigOpen.length,eurS(pipe)+' συνολικά','big'],['','Ανοιχτοί διαγωνισμοί',open.length,'όλων των ποσών','all'],['','Διαβουλεύσεις',actC.length,'ενεργές από '+C.length,'cons'],['','Παρακολουθούνται',U.length,'τελευταίες 30 ημέρες','any']];
+
+var html='<section class="kpis">'+K.map(function(k){return '<button class="kpi '+k[0]+'" data-k="'+k[4]+'"><span class="l">'+k[1]+'</span><span class="v num">'+k[2]+'</span><span class="s">'+esc(k[3])+'</span></button>';}).join('')+'</section>';
+
+var todayL=NEW.slice().sort(byPri).slice(0,8);
+var li=function(x,right){return '<div class="li" data-r="'+esc(x.ref)+'"><span class="pr '+(x.pri||'l')+'"></span><div style="min-width:0"><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+'</div></div><div class="r">'+right(x)+'</div></div>';};
+html+='<div class="g2"><section class="pn"><div class="ph"><h2>Τι άλλαξε</h2><span class="c">'+NEW.length+' νέα · '+basis+' · ταξινόμηση κατά προτεραιότητα</span><span class="sp"></span><button class="lk" data-k="new">Όλα τα νέα →</button></div>'+
+(todayL.length?todayL.map(function(x){return li(x,function(x){return '<b class="num">'+eurS(x.bv)+'</b>'+dueTxt(x);});}).join(''):'<div class="empty">Δεν υπάρχουν νέες δημοσιεύσεις.</div>')+'</section>';
+var dl=soon.filter(function(x){return x.big||x.pri==='h';}).sort(function(a,b){return a.dd-b.dd||byPri(a,b);}).slice(0,7);
+html+='<div class="side"><section class="pn"><div class="ph"><h2>Προθεσμίες εβδομάδας</h2><span class="c">≥ 80K ή υψηλή προτ.</span><span class="sp"></span><button class="lk" data-k="soon">Όλες ('+soon.length+') →</button></div>'+
+(dl.length?dl.map(function(x){return li(x,function(x){return dueTxt(x)+'<span class="c2 num" style="display:block">'+eurS(x.bv)+'</span>';});}).join(''):'<div class="empty">Καμία προθεσμία αυτή την εβδομάδα.</div>')+'</section>';
+var cl=actC.slice().sort(function(a,b){return a.dd-b.dd;}).slice(0,4);
+html+='<section class="pn"><div class="ph"><h2>Διαβουλεύσεις σε εξέλιξη</h2><span class="sp"></span><button class="lk" data-k="cons">Όλες ('+C.length+') →</button></div>'+
+(cl.length?cl.map(function(x){return '<a class="li" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div style="min-width:0"><div class="t">'+(x.isNew?'<span class="tg new">ΝΕΟ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.org)+'</div></div><div class="r">'+dueTxt(x)+'</div></a>';}).join(''):'<div class="empty">Καμία ενεργή.</div>')+'</section></div></div>';
+
+html+='<section class="pn feed" id="feed"><div class="tb"><div class="seg" id="src"><button data-s="w" class="on">Διαγωνισμοί <span class="num">'+U.length+'</span></button><button data-s="c">Διαβουλεύσεις <span class="num">'+C.length+'</span></button></div>'+
+'<div class="qv" id="qv"></div><span class="sp"></span><input type="search" id="q" placeholder="Αναζήτηση τίτλου, φορέα, α/α…" aria-label="Αναζήτηση">'+
+'<select id="cat" aria-label="Κατηγορία"><option value="">Όλες οι κατηγορίες</option>'+CATS.map(function(c){return '<option>'+c[0]+'</option>';}).join('')+'<option>Λοιπά ΤΠΕ</option></select>'+
+'<select id="st" aria-label="Κατάσταση"><option value="open">Ανοιχτά</option><option value="soon">Λήγουν ≤ 7 ημ.</option><option value="closed">Έληξαν</option><option value="all">Όλα</option></select>'+
+'<select id="val" aria-label="Προϊπολογισμός"><option value="0">Κάθε ποσό</option><option value="80000">≥ 80 χιλ. €</option><option value="300000">≥ 300 χιλ. €</option><option value="1000000">≥ 1 εκ. €</option></select></div>'+
+'<div class="cnt" id="cnt"></div><div id="tbl"></div></section>'+
+'<footer><span>Πηγές: ΚΗΜΔΗΣ Open Data API · <a href="https://cerpp.eprocurement.gov.gr/deliberation/#/deliberation-search/" target="_blank" rel="noopener">cerpp.eprocurement.gov.gr</a></span><span>Ανανεώνεται καθημερινά 08:45</span><span>Η προτεραιότητα υπολογίζεται από ποσό, αναφορά σε Microsoft, κατηγορία και προθεσμία.</span></footer>';
+$('#app').innerHTML=html;
+
+var QV=[['all','Όλα',function(){return true;}],['new','Νέα',function(x){return x.isNew;}],['high','Υψηλή προτ.',function(x){return x.pri==='h';}],['soon','Λήγουν ≤ 7 ημ.',function(x){return x.open&&x.dd<=7;}],['ms','Microsoft',function(x){return x.ms;}],['watch','★ Οι φορείς μου',function(x){return watch.indexOf(x.org)>=0;}]];
+function rows(){
+var q=norm(state.q),v=+state.val,f=QV.filter(function(z){return z[0]===state.qv;})[0][2];
+return U.filter(function(x){
+if(!f(x))return false;
+if(state.st==='open'&&!x.open)return false;if(state.st==='soon'&&!(x.open&&x.dd<=7))return false;if(state.st==='closed'&&x.open)return false;
+if(state.cat&&x.cat!==state.cat)return false;if(v&&(x.bv||0)<v)return false;
+if(q&&norm(x.t+' '+x.org+' '+x.sys+' '+x.ref).indexOf(q)<0)return false;return true;
+}).sort(state.sort==='new'?function(a,b){return b.pubRaw.localeCompare(a.pubRaw)||byPri(a,b);}:state.sort==='dl'?function(a,b){return (a.open===b.open?0:a.open?-1:1)||(a.dlRaw||'').localeCompare(b.dlRaw||'');}:state.sort==='val'?function(a,b){return (b.bv||0)-(a.bv||0);}:function(a,b){return (b.open-a.open)||byPri(a,b)||b.pubRaw.localeCompare(a.pubRaw);});
 }
-
-(function(){
-const top=bigOpen.slice().sort((a,b)=>b.bv-a.bv).slice(0,6);
-const tl=[];for(let i=0;i<15;i++){const d=new Date(T);d.setDate(d.getDate()+i);const iso=d.toISOString().slice(0,10);const L=open.filter(x=>x.dlRaw===iso);tl.push([iso,L.length,L.reduce((s,x)=>s+x.bv,0)]);}
-const mx=Math.max(...tl.map(t=>t[1]),1);
-const crit=open.filter(x=>x.big&&x.dd<=7).sort((a,b)=>a.dlRaw.localeCompare(b.dlRaw)).slice(0,7);
-const biggestNew=last3.slice().sort((a,b)=>b.bv-a.bv)[0];
-$('#vA').innerHTML=
-'<div class="a-hero"><div><h1>Ενημέρωση ΤΠΕ Δημοσίου</h1><div class="date">'+new Date(T).toLocaleDateString('el-GR',{weekday:'long'})+' '+M.date+' · αυτόματη ενημέρωση κάθε πρωί</div><ul>'+
-'<li><b>'+last3.length+' νέα έργα</b> τις τελευταίες 3 ημέρες'+(biggestNew?' — μεγαλύτερο: '+esc(tc(biggestNew.t)).slice(0,70)+'… ('+eurS(biggestNew.bv)+')':'')+'</li>'+
-'<li><b>'+week.length+' προθεσμίες</b> λήγουν μέσα στην εβδομάδα, '+week.filter(x=>x.big).length+' από αυτές ≥ 80K</li>'+
-'<li><b>'+bigOpen.length+' ανοιχτά έργα ≥ 80K</b> με συνολικό Π/Υ <b>'+eurS(pipe)+'</b></li>'+
-'<li><b>'+msN.length+' ανοιχτά έργα</b> αναφέρουν ρητά Microsoft · <b>'+activeC.length+'</b> ενεργές διαβουλεύσεις</li></ul></div>'+
-'<div class="a-kpis"><div class="a-kpi"><div class="v">'+bigOpen.length+'</div><div class="l">Ανοιχτά έργα ≥ 80K</div></div><div class="a-kpi"><div class="v">'+eurS(pipe)+'</div><div class="l">Ανοιχτός Π/Υ</div></div><div class="a-kpi"><div class="v">'+week.length+'</div><div class="l">Λήγουν σε 7 ημέρες</div></div><div class="a-kpi"><div class="v">'+activeC.length+'</div><div class="l">Ενεργές διαβουλεύσεις</div></div></div></div>'+
-'<div class="a-grid"><div class="card" style="padding:18px"><h2>🎯 Μεγαλύτερες ανοιχτές ευκαιρίες</h2><ol class="top">'+top.map((x,i)=>'<li><span class="rank">'+(i+1)+'</span><div><a href="'+link(x)+'"><b>'+esc(x.tt)+'</b></a><div class="muted" style="font-size:12.5px">'+esc(x.org)+' · λήξη '+esc(x.dl)+'</div><div style="margin-top:4px">'+chips(x)+'</div></div><span class="amt">'+eurS(x.bv)+'</span></li>').join('')+'</ol></div>'+
-'<div class="card" style="padding:18px"><h2>⏳ Προθεσμίες 15 ημερών</h2><div class="tl">'+tl.map((t,i)=>'<div class="d" title="'+t[1]+' έργα · '+eur(t[2])+'"><span class="c">'+(t[1]||'')+'</span><div class="b'+(i?'':' today')+'" style="height:'+(t[1]/mx*85)+'%"></div><span class="x">'+fmt(t[0])+'</span></div>').join('')+'</div>'+
-'<h3 style="margin-top:18px">Κρίσιμα ≥ 80K αυτή την εβδομάδα</h3><div class="dl"><ul>'+(crit.length?crit.map(x=>'<li><a href="'+link(x)+'">'+esc(x.tt).slice(0,90)+'</a><div class="muted">'+(x.dd===0?'<b style="color:var(--crit)">σήμερα</b>':'σε '+x.dd+' ημέρες')+' · '+esc(x.bud)+'</div></li>').join(''):'<li class="muted">Καμία</li>')+'</ul></div></div></div>';
-explorer($('#vA'),'a');
-})();
-
-(function(){
-const byCat={};open.forEach(x=>{byCat[x.cat]=(byCat[x.cat]||0)+x.bv;});
-const cats=Object.entries(byCat).sort((a,b)=>b[1]-a[1]);const cm=cats[0][1];
-const byOrg={};open.forEach(x=>{byOrg[x.org]=(byOrg[x.org]||0)+x.bv;});
-const orgs=Object.entries(byOrg).sort((a,b)=>b[1]-a[1]).slice(0,8);const om=orgs[0][1];
-const bar=(k,v,m)=>'<div class="hb"><span class="k" title="'+esc(k)+'">'+esc(k)+'</span><div class="tr"><div class="f" style="width:'+(v/m*100)+'%"></div></div><span class="v">'+eurS(v)+'</span></div>';
-$('#vB').innerHTML='<div class="b-shell"><aside class="card b-side"><h1>NEPPS · ΤΠΕ</h1><div class="muted" style="font-size:12px">'+M.date+' · live briefing</div>'+
-'<label>Γρήγορα φίλτρα</label><div class="tg"><button class="on">Ανοιχτά</button><button>≥ 80K</button><button>≥ 1 εκ.</button><button>Microsoft</button><button>Λήγουν ≤ 7η</button></div>'+
-'<label>Κατηγορία</label><select><option>Όλες</option>'+cats.map(c=>'<option>'+esc(c[0])+'</option>').join('')+'</select>'+
-'<label>Φορέας</label><input placeholder="π.χ. ΗΔΙΚΑ, Δήμος…"><label>Αποθηκευμένες προβολές</label><div class="tg"><button>Υγεία</button><button>Δήμοι</button><button>Υπουργεία</button></div>'+
-'<p class="muted" style="font-size:11.5px;margin-top:18px">Στο mockup τα φίλτρα της στήλης είναι ενδεικτικά· η λειτουργική αναζήτηση είναι στον πίνακα δεξιά.</p></aside><div>'+
-'<div class="b-kpis">'+[['Ανοιχτά ≥80K',bigOpen.length,'από '+U.filter(x=>x.big).length+' τον μήνα'],['Ανοιχτός Π/Υ',eurS(pipe),'μόνο ≥ 80K'],['Λήγουν ≤ 7η',week.length,week.filter(x=>x.big).length+' μεγάλα'],['Microsoft',msN.length,'ρητή αναφορά'],['Διαβουλεύσεις',activeC.length,'ενεργές / '+C.length]].map(k=>'<div class="card b-kpi"><div class="l">'+k[0]+'</div><div class="v">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>').join('')+'</div>'+
-'<div class="b-charts"><div class="card" style="padding:16px"><h3>Ανοιχτός Π/Υ ανά κατηγορία</h3>'+cats.map(c=>bar(c[0],c[1],cm)).join('')+'</div><div class="card" style="padding:16px"><h3>Top φορείς (ανοιχτός Π/Υ)</h3>'+orgs.map(o=>bar(o[0],o[1],om)).join('')+'</div></div>'+
-'<div id="bx"></div></div></div>';
-explorer($('#bx'),'b');
-})();
-
-(function(){
-const cols=[['k1','🔴 Λήγει σε ≤ 3 ημέρες',x=>x.dd<=3],['k2','🟠 Έως 7 ημέρες',x=>x.dd>3&&x.dd<=7],['k3','🔵 Έως 21 ημέρες',x=>x.dd>7&&x.dd<=21],['k4','🟢 Αργότερα',x=>x.dd>21]];
-const pool=bigOpen.slice().sort((a,b)=>a.dlRaw.localeCompare(b.dlRaw));
-$('#vC').innerHTML='<div class="c-head"><div><h1>📌 Pipeline διαγωνισμών ΤΠΕ ≥ 80K</h1><div class="muted">'+M.date+' · μόνο ανοιχτοί διαγωνισμοί, ομαδοποιημένοι ανά επείγον</div></div><div><span class="chip big">μπλε = ≥ 80K</span><span class="chip" style="background:#efe5ff;color:#6b2bd9">μωβ = ≥ 1 εκ.</span><span class="chip ms">Microsoft</span></div></div>'+
-'<div class="c-brief">'+[['Σήμερα λήγουν',open.filter(x=>x.dd===0).length+' έργα'],['Νέα (3 ημέρες)',last3.length+' έργα'],['Ανοιχτός Π/Υ ≥80K',eurS(pipe)],['Ενεργές διαβουλεύσεις',activeC.length]].map(b=>'<div class="card"><div class="muted" style="font-size:12px">'+b[0]+'</div><div class="v">'+b[1]+'</div></div>').join('')+'</div>'+
-'<div class="c-board">'+cols.map(c=>{const L=pool.filter(c[2]);return '<div class="col '+c[0]+'"><h3>'+c[1]+'<span class="chip">'+L.length+' · '+eurS(L.reduce((s,x)=>s+x.bv,0))+'</span></h3>'+L.map(x=>'<div class="tk '+(x.bv>=1e6?'huge':'big')+'"><a class="t" href="'+link(x)+'">'+esc(x.tt)+'</a><div class="o">'+esc(x.org)+'</div><div class="m"><span>λήξη '+esc(x.dl)+'</span><b>'+eurS(x.bv)+'</b></div><div style="margin-top:6px">'+(x.ms?'<span class="chip ms">Microsoft</span>':'')+'<span class="chip">'+esc(x.cat)+'</span></div></div>').join('')+'</div>';}).join('')+'</div>';
-explorer($('#vC'),'c');
-})();
-document.querySelector('.switch').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('.switch button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v'+b.dataset.v));window.scrollTo(0,0);});
+function stat(x){return !x.open?'<span class="st cl">Έληξε</span>':x.dd<=3?'<span class="st so">Λήγει</span>':'<span class="st op">Ανοιχτό</span>';}
+function detail(x){
+var w=watch.indexOf(x.org)>=0;
+return '<div class="dt'+(state.openRow===x.ref?' on':'')+'"><div class="dg">'+
+'<div><span>Φορέας</span>'+esc(x.org)+'</div><div><span>Τύπος διαδικασίας</span>'+esc(x.type||'—')+'</div><div><span>Προϊπολογισμός (χωρίς ΦΠΑ)</span><span class="num" style="font-size:13px;color:var(--tx)">'+esc(x.bud)+'</span></div><div><span>Λήξη υποβολής</span>'+esc(x.dl)+(x.post?' · παράταση':'')+'</div>'+
+'<div><span>α/α ΕΣΗΔΗΣ</span>'+esc(x.sys||'—')+'</div><div><span>Κωδικός ΚΗΜΔΗΣ</span>'+esc(x.ref)+'</div><div><span>Δημοσίευση</span>'+esc(x.pub)+'</div><div><span>Έγγραφα</span>'+x.docs.length+'</div></div>'+
+(x.why.length&&x.open?'<div class="why"><b>Γιατί '+(x.pri==='h'?'υψηλή':x.pri==='m'?'μεσαία':'χαμηλή')+' προτεραιότητα:</b> '+esc(x.why.join(' · '))+'</div>':'')+
+'<div class="acts"><a class="btn pri" href="'+esc(x.dekiryxi)+'" target="_blank" rel="noopener">Διακήρυξη</a>'+(x.esidis?'<a class="btn" href="'+esc(x.esidis)+'" target="_blank" rel="noopener">Τεύχη ΕΣΗΔΗΣ</a>':'')+
+'<button class="btn" data-w="'+esc(x.org)+'">'+(w?'★ Αφαίρεση από τους φορείς μου':'☆ Προσθήκη στους φορείς μου')+'</button></div></div>';
 }
-fetch('../index.html',{cache:'no-store'}).then(r=>r.text()).then(h=>{const i=h.indexOf('const DATA = ');if(i<0)throw 0;const s=h.slice(i+13);const e=s.indexOf(';\n(function(){');boot(JSON.parse(s.slice(0,e)));}).catch(()=>{document.querySelector('.wrap').innerHTML='<p class="muted">Δεν ήταν δυνατή η φόρτωση των δεδομένων από την κύρια σελίδα.</p>';});
+function render(){
+$('#qv').innerHTML=state.src==='c'?'':QV.map(function(z){var n=U.filter(z[2]).filter(function(x){return z[0]==='all'||z[0]==='new'||z[0]==='watch'||z[0]==='ms'?true:x.open;}).length;return '<button data-q="'+z[0]+'" class="'+(state.qv===z[0]?'on':'')+'">'+z[1]+'<span class="n num">'+n+'</span></button>';}).join('');
+['cat','val'].forEach(function(id){$('#'+id).style.display=state.src==='c'?'none':'';});
+var H=function(k,l,c){return '<div class="so'+(state.sort===k?' on':'')+(c?' '+c:'')+'" data-o="'+k+'">'+l+(state.sort===k?' ↓':'')+'</div>';};
+if(state.src==='c'){
+var q=norm(state.q),L=C.filter(function(x){if(state.st==='open'&&x.expired)return false;if(state.st==='closed'&&!x.expired)return false;if(state.st==='soon'&&(x.expired||x.dd>7))return false;return !q||norm(x.t+' '+x.org+' '+x.code).indexOf(q)>=0;}).sort(function(a,b){return (a.expired-b.expired)||b.pubRaw.localeCompare(a.pubRaw);});
+$('#cnt').textContent=L.length+' διαβουλεύσεις';
+$('#tbl').className='cons';
+$('#tbl').innerHTML='<div class="th"><div></div><div>Διαβούλευση · Φορέας</div><div>Ανάρτηση</div><div>Λήξη</div><div class="rt">Σχόλια</div><div>Κατάσταση</div></div>'+
+(L.length?L.map(function(x){return '<a class="tr'+(x.isNew?'':' dim')+(x.expired?' cl':'')+'" style="color:inherit;text-decoration:none" href="'+esc(x.url)+'" target="_blank" rel="noopener"><span class="pr l"></span><div><div class="t">'+(x.isNew?'<span class="tg new">ΝΕΟ</span>':'')+esc(x.t)+'</div><div class="o">'+esc(x.org)+' · '+esc(x.code)+'</div></div><div class="num c2">'+dm(x.pubRaw)+'</div><div>'+(x.expired?'<span class="cd mu">'+esc(x.exp)+'</span>':dueTxt(x))+'</div><div class="rt num">'+x.com+'</div><div>'+(x.expired?'<span class="st ex">Έληξε</span>':'<span class="st op">Ενεργή</span>')+'</div></a>';}).join(''):'<div class="empty">Κανένα αποτέλεσμα.</div>');
+return;}
+var R=rows();
+$('#cnt').textContent=R.length+' διαγωνισμοί'+(R.length>state.lim?' · εμφανίζονται '+state.lim:'')+' · πατήστε μια γραμμή για λεπτομέρειες';
+$('#tbl').className='';
+$('#tbl').innerHTML='<div class="th"><div></div>'+H('pri','Διαγωνισμός · Φορέας')+'<div>Κατηγορία</div>'+H('val','Π/Υ','rt')+H('new','Δημοσ.')+H('dl','Προθεσμία')+'<div>Κατάσταση</div></div>'+
+(R.length?R.slice(0,state.lim).map(function(x){return '<div class="tr'+(x.isNew||x.pri==='h'?'':' dim')+(x.open?'':' cl')+(state.openRow===x.ref?' op':'')+'" data-r="'+esc(x.ref)+'" tabindex="0"><span class="pr '+(x.pri||'l')+'" title="Προτεραιότητα"></span><div><div class="t">'+tags(x)+esc(x.t)+'</div><div class="o">'+esc(x.org)+'</div></div><div class="c2">'+esc(x.cat)+'</div><div class="rt num">'+eurS(x.bv)+'</div><div class="num c2">'+dm(x.pubRaw)+'</div><div><div class="num">'+dm(x.dlRaw)+'</div>'+(x.open?dueTxt(x):'')+'</div><div>'+stat(x)+'</div></div>'+detail(x);}).join(''):'<div class="empty">Κανένα αποτέλεσμα για αυτά τα φίλτρα.</div>')+
+(R.length>state.lim?'<button class="more" id="more">Εμφάνιση περισσότερων ('+(R.length-state.lim)+')</button>':'');
+}
+function go(k){
+var map={new:['w','new','all'],soon:['w','soon','open'],high:['w','high','open'],big:['w','all','open','80000'],all:['w','all','open','0'],cons:['c','all','open'],any:['w','all','all','0']}[k];
+if(!map)return;state.src=map[0];state.qv=map[1];state.st=map[2];if(map[3]!==undefined)state.val=map[3];state.lim=40;
+$('#st').value=state.st;$('#val').value=state.val;
+[].forEach.call($('#src').children,function(b){b.classList.toggle('on',b.dataset.s===state.src);});
+render();$('#feed').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.addEventListener('click',function(e){
+var t=e.target,b;
+if((b=t.closest('[data-k]')))return go(b.dataset.k);
+if((b=t.closest('#src button'))){state.src=b.dataset.s;state.lim=40;[].forEach.call($('#src').children,function(z){z.classList.toggle('on',z===b);});return render();}
+if((b=t.closest('#qv button'))){state.qv=b.dataset.q;state.lim=40;if(state.qv==='new'||state.qv==='watch'||state.qv==='ms')state.st='all';$('#st').value=state.st;return render();}
+if((b=t.closest('[data-o]'))){state.sort=b.dataset.o;return render();}
+if(t.id==='more'){state.lim+=40;return render();}
+if((b=t.closest('[data-w]'))){var o=b.dataset.w,i=watch.indexOf(o);if(i>=0)watch.splice(i,1);else watch.push(o);LS.set('nepps.watch',watch);return render();}
+if(t.closest('.dt a'))return;
+if((b=t.closest('.li[data-r]'))){state.src='w';state.qv='all';state.st='all';state.q=b.dataset.r;$('#q').value=state.q;state.openRow=b.dataset.r;$('#st').value='all';[].forEach.call($('#src').children,function(z){z.classList.toggle('on',z.dataset.s==='w');});render();$('#feed').scrollIntoView({behavior:'smooth',block:'start'});return;}
+if((b=t.closest('.tr[data-r]'))){state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;return render();}
+});
+document.addEventListener('keydown',function(e){var b=e.target.closest&&e.target.closest('.tr[data-r]');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();state.openRow=state.openRow===b.dataset.r?null:b.dataset.r;render();var n=$('.tr[data-r="'+b.dataset.r+'"]');if(n)n.focus();}});
+$('#q').addEventListener('input',function(e){state.q=e.target.value;state.lim=40;render();});
+['cat','st','val'].forEach(function(id){$('#'+id).addEventListener('change',function(e){state[id]=e.target.value;state.lim=40;render();});});
+render();
+}
+fetch('../index.html',{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){var i=h.indexOf('const DATA = ');if(i<0)throw 0;var s=h.slice(i+13);boot(JSON.parse(s.slice(0,s.indexOf(';\n(function(){'))));})
+.catch(function(e){console.error(e);$('#app').innerHTML='<div class="empty">Δεν ήταν δυνατή η φόρτωση των δεδομένων. <a href="../">Άνοιγμα κλασικής προβολής</a></div>';});
+})();
 </script>
 </body>
 </html>
