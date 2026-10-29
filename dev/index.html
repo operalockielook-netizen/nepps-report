@@ -176,7 +176,7 @@ html+='<section class="pn feed" id="feed"><div class="tb"><div class="seg" id="s
 '<div class="qv" id="qv"></div><span class="sp"></span><input type="search" id="q" placeholder="Αναζήτηση τίτλου, φορέα, α/α…" aria-label="Αναζήτηση">'+
 '<select id="cat" aria-label="Κατηγορία"><option value="">Όλες οι κατηγορίες</option>'+CATS.map(function(c){return '<option>'+c[0]+'</option>';}).join('')+'<option>Λοιπά ΤΠΕ</option></select>'+
 '<select id="st" aria-label="Κατάσταση"><option value="open">Ανοιχτά</option><option value="soon">Λήγουν ≤ 7 ημ.</option><option value="closed">Έληξαν</option><option value="all">Όλα</option></select>'+
-'<select id="val" aria-label="Προϊπολογισμός"><option value="0">Κάθε ποσό</option><option value="80000">≥ 80 χιλ. €</option><option value="300000">≥ 300 χιλ. €</option><option value="1000000">≥ 1 εκ. €</option></select></div>'+
+'<select id="val" aria-label="Προϋπολογισμός"><option value="0">Κάθε ποσό</option><option value="80000">≥ 80 χιλ. €</option><option value="300000">≥ 300 χιλ. €</option><option value="1000000">≥ 1 εκ. €</option></select></div>'+
 '<div class="cnt" id="cnt"></div><div id="tbl"></div></section>'+
 '<footer><span>Πηγές: ΚΗΜΔΗΣ Open Data API · <a href="https://cerpp.eprocurement.gov.gr/deliberation/#/deliberation-search/" target="_blank" rel="noopener">cerpp.eprocurement.gov.gr</a></span><span>Ανανεώνεται καθημερινά 08:45</span><span>Η προτεραιότητα υπολογίζεται από ποσό, αναφορά σε Microsoft, κατηγορία και προθεσμία.</span></footer>';
 $('#app').innerHTML=html;
@@ -195,7 +195,7 @@ function stat(x){return !x.open?'<span class="st cl">Έληξε</span>':x.dd<=3?
 function detail(x){
 var w=watch.indexOf(x.org)>=0;
 return '<div class="dt'+(state.openRow===x.ref?' on':'')+'"><div class="dg">'+
-'<div><span>Φορέας</span>'+esc(x.org)+'</div><div><span>Τύπος διαδικασίας</span>'+esc(x.type||'—')+'</div><div><span>Προϊπολογισμός (χωρίς ΦΠΑ)</span><span class="num" style="font-size:13px;color:var(--tx)">'+esc(x.bud)+'</span></div><div><span>Λήξη υποβολής</span>'+esc(x.dl)+(x.post?' · παράταση':'')+'</div>'+
+'<div><span>Φορέας</span>'+esc(x.org)+'</div><div><span>Τύπος διαδικασίας</span>'+esc(x.type||'—')+'</div><div><span>Προϋπολογισμός (χωρίς ΦΠΑ)</span><span class="num" style="font-size:13px;color:var(--tx)">'+esc(x.bud)+'</span></div><div><span>Λήξη υποβολής</span>'+esc(x.dl)+(x.post?' · παράταση':'')+'</div>'+
 '<div><span>α/α ΕΣΗΔΗΣ</span>'+esc(x.sys||'—')+'</div><div><span>Κωδικός ΚΗΜΔΗΣ</span>'+esc(x.ref)+'</div><div><span>Δημοσίευση</span>'+esc(x.pub)+'</div><div><span>Έγγραφα</span>'+x.docs.length+'</div></div>'+
 (x.why.length&&x.open?'<div class="why"><b>Γιατί '+(x.pri==='h'?'υψηλή':x.pri==='m'?'μεσαία':'χαμηλή')+' προτεραιότητα:</b> '+esc(x.why.join(' · '))+'</div>':'')+
 '<div class="acts"><a class="btn pri" href="'+esc(x.dekiryxi)+'" target="_blank" rel="noopener">Διακήρυξη</a>'+(x.esidis?'<a class="btn" href="'+esc(x.esidis)+'" target="_blank" rel="noopener">Τεύχη ΕΣΗΔΗΣ</a>':'')+
