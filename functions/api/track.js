@@ -63,7 +63,7 @@ export async function onRequestPost(ctx) {
     } catch (x) { return null; }
   }
   async function award(ref) {
-    const c = await env.PINS.get('aw:' + ref, 'json');
+    const c = await env.PINS.get('aw_v2:' + ref, 'json');
     if (c) return c;
     const d = await up('/auction?page=0', { method: 'POST', body: JSON.stringify({ referenceNumber: ref }) });
     const it = d && (d.content || []).filter(function (x) { return x.referenceNumber === ref; })[0];
@@ -72,17 +72,17 @@ export async function onRequestPost(ctx) {
     if (typeof amt !== 'number' || amt <= 0) amt = it.auctionAmount;
     const a = {
       ref: ref, ctr: contractors(it), av: typeof amt === 'number' && amt > 0 ? amt : null,
-      day: (it.signedDate || it.submissionDate || '').slice(0, 10), dv: it.diavgeiaLink || '',
+      day: (it.submissionDate || it.signedDate || '').slice(0, 10), sig: (it.signedDate || '').slice(0, 10), dv: it.diavgeiaLink || '',
       pdf: API + '/auction/attachment/' + ref, cancelled: !!it.cancelled
     };
-    await env.PINS.put('aw:' + ref, JSON.stringify(a));
+    await env.PINS.put('aw_v2:' + ref, JSON.stringify(a));
     return a;
   }
   const out = {};
   for (const item of items) {
     const k = String(item.k || ''), refs = (Array.isArray(item.refs) ? item.refs : []).slice(0, 2).map(String);
     if (!k || !refs.length) continue;
-    const cached = await env.PINS.get('trk:' + k, 'json');
+    const cached = await env.PINS.get('trk_v2:' + k, 'json');
     if (cached && ((cached.aw && cached.aw.length && cached.sy && cached.sy.length) || Date.now() - cached.t < FRESH)) { out[k] = cached; continue; }
     let auctions = [], contracts = [], ok = false;
     for (const ref of refs) {
@@ -98,7 +98,7 @@ export async function onRequestPost(ctx) {
     for (const r of auctions.slice(0, 3)) { const a = await award(r); if (a && !a.cancelled) aw.push(a); }
     const res = { aw: aw, sy: contracts, t: Date.now() };
     if (auctions.length && !aw.length && cached && cached.aw) res.aw = cached.aw; // details not reachable now
-    await env.PINS.put('trk:' + k, JSON.stringify(res));
+    await env.PINS.put('trk_v2:' + k, JSON.stringify(res));
     out[k] = res;
   }
   return json({ items: out, partial: blocked || budget <= 0 });
